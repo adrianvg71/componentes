@@ -1,10 +1,7 @@
 const express = require("express");
 const app = express();
 const path = require("path")
-const mysql = require("mysql2")
-const fs = require("node:fs");
 const session = require("express-session");
-const bcrypt = require("bcrypt-nodejs");
 require('dotenv').config()
 
 // Rutas
@@ -17,11 +14,8 @@ const productosRouter = require("./public/routes/productosRoutes")
 const carritoRouter = require("./public/routes/carritoRoutes")
 const comprarRoutes = require("./public/routes/comprarRoutes")
 
-
-
-
-
 app.use(express.static(path.join(__dirname, 'public')));
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(session({
   secret: 'secret',
@@ -92,7 +86,7 @@ const PORT = process.env.PORT || 3000;
 
 
 app.listen(PORT, () => {
-    console.log(`Servidor web iniciado en http://localhost:${PORT}`)
-})
+  console.log(`Servidor web iniciado en el puerto ${PORT}`);
+});
 
 module.exports = app;
