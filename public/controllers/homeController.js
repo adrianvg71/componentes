@@ -1,6 +1,5 @@
-const { getCarritoByUserId } = require("../models/carritoModel");
 const { getAllCategories } = require("../models/categoriasModel");
-const { getAllProductos } = require("../models/productosModel");
+const { getCarritoByUserId } = require("../models/carritoModel");
 
 async function getMainPage(req, res) {
   const categorias = await getAllCategories();

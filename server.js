@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const path = require("path")
+const session = require("express-session");
 
 // Rutas
 const adminRouter = require("./public/routes/adminRoutes");
