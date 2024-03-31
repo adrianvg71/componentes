@@ -16,11 +16,8 @@ const productosRouter = require("./public/routes/productosRoutes")
 const carritoRouter = require("./public/routes/carritoRoutes")
 const comprarRoutes = require("./public/routes/comprarRoutes")
 
-
-
-
-
 app.use(express.static(path.join(__dirname, 'public')));
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(session({
   secret: 'secret',
