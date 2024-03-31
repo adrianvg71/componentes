@@ -1,10 +1,6 @@
 const express = require("express");
 const app = express();
 const path = require("path")
-const mysql = require("mysql2")
-const fs = require("node:fs");
-const session = require("express-session");
-const bcrypt = require("bcrypt-nodejs");
 
 // Rutas
 const adminRouter = require("./public/routes/adminRoutes");
@@ -83,7 +79,6 @@ app.post("/test", function(req,res) {
 
   res.json({ title: variable, variable: variable })
 })
-
 
 const server = app.listen(8080, () => {
     console.log('Servidor web iniciado en http://localhost:8080')
