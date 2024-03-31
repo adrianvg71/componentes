@@ -1,11 +1,13 @@
 const { getAllCategories } = require("../models/categoriasModel");
 const { getAllProductos, deleteProdModel, createProdModel, updateProdModel } = require("../models/productosModel");
+require('dotenv').config()
+
 
 async function getAdminProductsPage(req, res){
   const products = await getAllProductos()
   const categorias = await getAllCategories();
 
-  res.render('adminProducts', {productos: products, categorias: categorias, user: req.session})
+  res.render('adminProducts', {productos: products, categorias: categorias, user: req.session, imgbb_key: process.env.IMGBB_KEY})
 }
 
 async function deleteProd(req,res) {
