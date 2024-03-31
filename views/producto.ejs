@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../css/output.css">
+  <link rel="stylesheet" type="text/css" href="../../css/style.css">
+  <script src="../../js/producto.js"></script>
+  <title><%= producto.nombre %></title>
+</head>
+<body class="bg-yellow-800/25">
+  <%- include('template/nav'); %>
+  <div class="w-[90%] mx-auto mt-8">
+  <li class="list-none p-5 ml-5">
+    <a class="underline text-stone-500 text-lg font-semibold hover:text-stone-600" href="/home">Home</a>
+    <span class="text-stone-500 text-lg">></span>
+    <span class="text-stone-500 text-lg font-semibold"><%= producto.nombre%></span>
+  </li>
+  <div class="p-6 ml-4 flex flex-row items-center justify-center gap-10">
+    <img class="border-4 border-yellow-900/80 rounded-lg size-[40rem] shadow-xl" src="<%=producto.img%>" alt="">
+    <div class="w-full mx-auto text-center flex flex-col gap-20 items-center justify-center">
+      <h1 class="text-6xl font-bold text-yellow-800"><%=producto.nombre%></h1>
+      <div class="border-2 border-yellow-900/80 w-[60%] mx-auto bg-stone-100 rounded-md text-start p-4 flex flex-row items-center justify-center gap-4 flex-wrap">
+        <p class="text-yellow-800 font-bold text-2xl mr-5"><%= producto.precio %>€</p>
+        <button id="<%=user.isLoggedIn ? 'añadirCesta' : 'abrirModal'%>" class="flex-grow px-8 py-3 text-white bg-orange-500/80 hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-opacity-50 rounded-lg text-xl font-semibold">Añadir al carrito</button>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

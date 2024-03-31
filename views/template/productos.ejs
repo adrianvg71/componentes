@@ -1,0 +1,19 @@
+<template id="templateProductos">
+
+  <div class="container mx-auto max-w-5xl py-20">
+    <h1 class="text-6xl text-yellow-950/80 text-center font-semibold bg-orange-400/80 p-4 rounded-lg">TODOS LOS PRODUCTOS</h1>
+    <div class="grid w-fit grid-cols-3 gap-4 mt-14 px-7">
+      <% productos.forEach(function(producto) { %>
+        <div class="producto flex flex-col items-center justify-start bg-orange-300/80 border-4 border-stone-800/60 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-transform transform hover:scale-105">
+          <div class="relative w-full">
+            <img class="w-full h-auto max-h-56 object-cover border-b-2 border-stone-900/60" src="<%= producto.img %>" alt="<%= producto.nombre %>">
+          </div>
+          <h3 class="mt-2 mb-1 text-base font-semibold text-stone-800 px-4"><%= producto.nombre %></h3>
+          <p class="mb-2 text-lg font-semibold text-stone-700"><%= producto.precio %>€</p>
+          <button class="mb-4 px-4 py-2 text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 rounded-lg">Añadir al carrito</button>
+        </div>
+        <% }); %>
+      </div>
+    </div>
+    
+  </template>
