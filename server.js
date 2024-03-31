@@ -81,6 +81,9 @@ app.post("/test", function(req,res) {
   res.json({ title: variable, variable: variable })
 })
 
-const server = app.listen(8080, () => {
-    console.log('Servidor web iniciado en http://localhost:8080')
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Servidor web iniciado en http://localhost:${PORT}`)
 })
+
+module.exports = app;
