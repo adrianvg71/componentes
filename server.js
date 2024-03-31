@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const path = require("path")
+const session = require("express-session");
 
 // Rutas
 const adminRouter = require("./public/routes/adminRoutes");
@@ -12,8 +13,8 @@ const productosRouter = require("./public/routes/productosRoutes")
 const carritoRouter = require("./public/routes/carritoRoutes")
 const comprarRoutes = require("./public/routes/comprarRoutes")
 
-app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(session({
   secret: 'secret',
@@ -80,6 +81,9 @@ app.post("/test", function(req,res) {
   res.json({ title: variable, variable: variable })
 })
 
-const server = app.listen(8080, () => {
-    console.log('Servidor web iniciado en http://localhost:8080')
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+    console.log(`Servidor web iniciado en http://localhost:${PORT}`)
 })
+
+module.exports = app;

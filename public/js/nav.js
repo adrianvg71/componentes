@@ -426,40 +426,53 @@ window.onload = function() {
         search.parentNode.classList.add("hidden")
     }
 
-    search.addEventListener("input", function(even) {
-        let ocultar = document.getElementById("ocultar")
+    let searchTimer = null;
+
+    search.addEventListener("input", buscarProducto)
+    
+    async function buscarProducto() {
+        let ocultar = document.getElementById("ocultar");
         var resultado = search.value.trim();
-        const divMensaje = document.querySelector("#mensaje")
-        if(divMensaje.innerHTML !== '') {
+        const divMensaje = document.querySelector("#mensaje");
+        if (divMensaje.innerHTML !== '') {
             divMensaje.innerHTML = "";
         }
-
-        if(resultado !== '') {
-            ocultar.classList.add("hidden")
-            fetch('/productos/producto/search/' + resultado)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => { 
-                if(data.length === 0) {
-                    divProductos.innerHTML = "";
-                    divMensaje.innerHTML = `<h3 class='text-6xl text-center text-yellow-800 font-bold italic mt-20'>No se han encontrado resultados</h3>`
-                } else {
-
-                    pintarProductos(data, "nada");
-                }
-            })
-            .catch(error => {
-                console.error('Error en la solicitud de búsqueda:', error);
-            });
-        } else {
-            ocultar.classList.remove("hidden")
-            filtrarProductos("todos")
-            console.log("vacio")
+    
+        // Cancelar el temporizador anterior si existe
+        if (searchTimer) {
+            clearTimeout(searchTimer);
         }
-    })
+    
+        if (resultado !== '') {
+            ocultar.classList.add("hidden");
+    
+            // Establecer un temporizador antes de realizar la búsqueda
+            searchTimer = setTimeout(async () => {
+                try {
+                    const response = await fetch('/productos/producto/search/' + resultado);
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    const data = await response.json();
+                    if (data.length === 0) {
+                        divProductos.innerHTML = "";
+                        divMensaje.innerHTML = `<h3 class='text-6xl text-center text-yellow-800 font-bold italic mt-20'>No se han encontrado resultados</h3>`;
+                    } else {
+                        await pintarProductos(data, "nada");
+                    }
+                } catch (error) {
+                    console.error('Error en la solicitud de búsqueda:', error);
+                }
+            }, 30); // Esperar 300 milisegundos antes de realizar la búsqueda
+        } else {
+            ocultar.classList.remove("hidden");
+            filtrarProductos("todos");
+            console.log("vacio");
+        }
+    }
+    
+    
+
+    
           
 }
