@@ -4,13 +4,11 @@
   "description": "login y register",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js",
-    "xd": "concurrently \"npm run watch-server\" \"npm run watch-tailwind\"",
+    "start": "node server.js",
     "dev": "concurrently \"npm run watch-server\" \"npm run watch-tailwind\" \"npm run ui\"",
     "watch-server": "nodemon server.js",
     "watch-tailwind": "npx tailwindcss -i ./public/css/tailwind.css -o ./public/css/output.css --watch",
-    "ui": "browser-sync start --proxy localhost:8080 --files 'public/**/*.*' --ignore=node_modules --no-ui --no-inject-changes --no-notify --no-open",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "ui": "browser-sync start --proxy localhost:8080 --files 'public/**/*.*' --ignore=node_modules --no-ui --no-inject-changes --no-notify --no-open"
   },
   "author": "",
   "license": "ISC",

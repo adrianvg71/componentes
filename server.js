@@ -5,6 +5,7 @@ const mysql = require("mysql2")
 const fs = require("node:fs");
 const session = require("express-session");
 const bcrypt = require("bcrypt-nodejs");
+require('dotenv').config()
 
 // Rutas
 const adminRouter = require("./public/routes/adminRoutes");
@@ -87,7 +88,11 @@ app.post("/test", function(req,res) {
   res.json({ title: variable, variable: variable })
 })
 
+const PORT = process.env.PORT || 3000;
 
-const server = app.listen(8080, () => {
-    console.log('Servidor web iniciado en http://localhost:8080')
+
+app.listen(PORT, () => {
+    console.log(`Servidor web iniciado en http://localhost:${PORT}`)
 })
+
+module.exports = app;
