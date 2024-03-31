@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../css/output.css">
+  <link rel="stylesheet" type="text/css" href="../../css/style.css">
+  <script src="../../js/nav2.js"></script>
+  <title>Admin</title>
+</head>
+<body class="bg-yellow-800/25">
+  <%- include('template/nav'); %>
+  <div class="w-[90%] mx-auto mt-8">
+    <li class="list-none p-5 ml-5">
+      <a class="underline text-stone-500 text-lg font-semibold hover:text-stone-600" href="/home">Home</a>
+      <span class="text-stone-500 text-lg">></span>
+      <span class="text-stone-500 text-lg font-semibold">Admin</span>
+    </li>
+    <div class="h-full w-full grid grid-cols-2 place-items-center  gap-10 p-5">
+      <!--Usuarios-->
+      <div onclick="window.location.href='/admin/usuarios'" class="h-80 w-full border-violet-400 rounded-lg shadow-xl cursor-pointer hover:scale-110 transition-transform bg-orange-300/80 border-stone-800/60 border-4 flex flex-row justify-center items-center hover:shadow-2xl text-yellow-800 xl:text-7xl font-bold xl:gap-10 gap-5 group text-5xl">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke="currentColor" class="xl:size-36 font-bold group-hover:opacity-80 transition-opacity size-28">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
+        </svg>
+        <h2 class="group-hover:opacity-80 transition-opacity">Usuarios</h2>        
+      </div>
+      <!--Categorias-->
+      <div onclick="window.location.href='/admin/categorias'" class="h-80 w-full border-violet-400 rounded-lg shadow-xl cursor-pointer hover:scale-110 transition-transform bg-orange-300/80 border-stone-800/60 border-4 flex flex-row justify-center items-center hover:shadow-2xl text-yellow-800 xl:text-7xl font-bold xl:gap-10 gap-5 group text-5xl">
+        <svg  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke="currentColor" class="xl:size-36 font-bold group-hover:opacity-80 transition-opacity size-28">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 0 0 9.568 3Z" />
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6Z" />
+        </svg>
+        <h2 class="group-hover:opacity-80 transition-opacity">Categorias</h2>
+      </div>
+      <!--Productos-->
+      <div onclick="window.location.href='/admin/productos'" class="h-80 w-full border-violet-400 rounded-lg shadow-xl cursor-pointer hover:scale-110 transition-transform bg-orange-300/80 border-stone-800/60 border-4 flex flex-row justify-center items-center hover:shadow-2xl text-yellow-800 xl:text-7xl font-bold xl:gap-10 gap-5 group text-5xl">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="xl:size-36 font-bold group-hover:opacity-80 transition-opacity size-28">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-9-1.5h10.5a2.25 2.25 0 0 0 2.25-2.25V6.75a2.25 2.25 0 0 0-2.25-2.25H6.75A2.25 2.25 0 0 0 4.5 6.75v10.5a2.25 2.25 0 0 0 2.25 2.25Zm.75-12h9v9h-9v-9Z" />
+        </svg>
+        <h2 class="group-hover:opacity-80 transition-opacity">Productos</h2>
+      </div>
+      <!--Carrito-->
+      <div onclick="window.location.href='/admin/carrito'" class="h-80 w-full border-violet-400 rounded-lg shadow-xl cursor-pointer hover:scale-110 transition-transform bg-orange-300/80 border-stone-800/60 border-4 flex flex-row justify-center items-center hover:shadow-2xl text-yellow-800 xl:text-7xl font-bold xl:gap-10 gap-5 group text-5xl">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="xl:size-36 font-bold group-hover:opacity-80 transition-opacity size-28">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+        </svg>
+        <h2 class="group-hover:opacity-80 transition-opacity">Carrito</h2>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

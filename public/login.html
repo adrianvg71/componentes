@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="formularios">
+          <div class="tabs-container">
+            <div class="tab" id="login">Iniciar Sesión</div>
+            <div class="tab not-selected" id="register">Registrarse</div>
+          </div>
+          <div class="form-container" id="login-form">
+            <h2>Iniciar Sesión</h2>
+            <form class="login">
+              <input type="email" id="email" name="email" placeholder="Correo" required>
+              <input type="password" id="password" name="password" placeholder="Contraseña" required>
+              <button type="submit">Iniciar Sesión</button>
+            </form>
+          </div>
+          
+          <div class="form-container hidden" id="register-form">
+            <h2>Registrarse</h2>
+            <form class="registro" name="" method="POST">
+              <input type="email" id="email" name="email" placeholder="Correo" required>
+              <input type="text" id="username" name="username" placeholder="Nombre de Usuario" required>
+              <input type="password" id="password" name="password" placeholder="Contraseña" required>
+              <button type="submit">Registrarse</button>
+            </form>
+          </div>
+        </div>
+        
+      </div>
+    <script src="js/login.js"></script>
+</body>
+</html>

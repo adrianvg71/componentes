@@ -1,0 +1,8 @@
+<div class="grid grid-cols-3 w-fit gap-4 mx-auto p-6 mt-10 py-10">
+  <% categorias.forEach(function(categoria) { %>
+    <div class="categoria group flex flex-col shadow-lg justify-center items-center w-auto h-auto bg-orange-300/80 border-stone-800/60 border-4 rounded-lg cursor-pointer hover:shadow-2xl hover:scale-110 transition-transform">
+      <img class="h-14 m-4 mb-3 group-hover:opacity-60" src="../../img/<%= categoria.nombre %>.png" alt="">
+      <h3 class="m-4 mt-0 text-base font-semibold text-stone-800 group-hover:opacity-60"><%= categoria.nombre %></h3>
+    </div>
+  <% }); %>
+</div>

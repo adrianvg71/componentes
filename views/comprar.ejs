@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../css/output.css">
+  <link rel="stylesheet" type="text/css" href="../../css/style.css">
+  <script src="../../js/nav2.js"></script>
+  <title>Finalizar compra</title>
+</head>
+<body class="bg-yellow-800/25">
+  <%- include('template/nav'); %>
+  <% if (carrito.length === 0) { %>
+    <div class="flex flex-col justify-center items-center h-[50vh] ">
+        <h1 class="text-5xl font-bold text-stone-500 ">LA CESTA ESTA VACIA</h1>
+    </div>
+  <% } else { %>
+    <div id="comprarDiv" class="flex flex-row mx-auto h-[88vh] w-full overflow-auto xl:px-20 lg:px-10 md:px-5 sm:px-2 xs:px-0">
+      <div class="flex flex-col gap-10 p-10 ">
+      <h1 class="font-semibold text-stone-700 text-4xl mb-10">Mi cesta</h1>
+    <% carrito.forEach(function(carrito) { %>
+      <div class="shadow-xl rounded-lg border-2 border-yellow-900 bg-yellow-800/35 h-fit p-4 flex flex-row gap-5" data-id="<%= carrito.id_carrito %>">
+        <img class="size-40 rounded-lg" src="<%= carrito.img %>" alt="">
+        <div class="flex flex-col justify-between w-full">
+          <h1 class="text-xl text-yellow-800 font-semibold whitespace-nowrap mt-2"><%= carrito.nombre %></h1>
+          <div class="flex flex-row items-center justify-between content-center mb-5">
+            <p id="precio" class="text-2xl font-bold text-yellow-900"><%=carrito.precio%>€</p>
+            <svg id="delete" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7 mr-5 text-red-700 cursor-pointer hover:text-red-800">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+            </svg>
+            
+          </div>
+        </div>
+      </div>
+    <% }); %>
+  </div>
+  <div class="h-full flex justify-end items-center content-center flex-grow ">
+    <div class="rounded-lg border-2 border-yellow-900 h-fit p-7 bg-yellow-800/35 flex flex-col gap-5 shadow-xl mr-20">
+      <h3 class="text-lg text-stone-700 font-semibold border-b-yellow-800 block border-b">Resumen</h3>
+      <h4 class="text-xl text-yellow-800 font-semibold">Total: <span id="total" class="font-bold text-yellow-900/85"></span></h4>
+      <button class="h-full w-full block px-12 py-3 text-lg font-medium text-white/80 shadow-lg bg-orange-400 hover:bg-orange-500 rounded-md transition-colors hover:text-white">Realizar pedido</button>
+    </div>
+  </div>
+</div>
+<% } %>
+
+<script>
+  let precio = document.querySelectorAll("#precio")
+  
+  let total = 0;
+    precio.forEach(precio => {
+      total += parseInt(precio.textContent)
+    })
+
+    let pintarTotal = document.getElementById("total");
+    pintarTotal.textContent = `${total}€`;
+
+    let borrar = document.querySelectorAll("#delete");
+    for(borrar of borrar) {
+      borrar.addEventListener("click", deleteCarrito)
+    }
+
+    async function deleteCarrito(event) {
+      const id = event.currentTarget.parentElement.parentElement.parentElement.getAttribute('data-id')
+      try {
+          const response = await fetch(`/carrito/delete/${id}`, {
+              method: 'DELETE',
+              headers: {
+                  'Content-Type': 'application/json'
+              }
+          });
+      
+          if (response.ok) {
+              window.location.reload();
+          } else {
+              console.error('Error al eliminar el recurso:', response.statusText);
+          }
+      } catch (error) {
+          console.error('Error al realizar la solicitud:', error);
+      }
+
+  }
+  </script>
+</body>
+</html>

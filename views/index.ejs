@@ -1,0 +1,21 @@
+<%- include('template/cabecera', {tituloweb: 'Inicio EJS'}); -%>
+<%- include('template/nav'); -%>
+<div id="ocultar">
+  <!-- hero -->
+  <%- include('template/hero'); -%>
+  <!-- Categorias -->
+  <%- include('template/categorias'); -%>
+</div>
+  <!-- Productos -->
+<div class="container mx-auto max-w-5xl py-10 min-h-[45rem]">
+  <h1 id="tituloProds" class="text-6xl text-yellow-950/80 text-center font-semibold bg-orange-400/80 p-4 rounded-lg"></h1>      
+    <div id="productos" class="grid w-fit grid-cols-3 gap-4 mt-14 px-7">
+    </div>
+    <div id="mensaje">
+
+    </div>
+</div>
+
+
+</body>
+</html>

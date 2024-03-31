@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../css/output.css">
+  <link rel="stylesheet" type="text/css" href="../../css/style.css">
+  <script src="../../js/nav2.js"></script>
+  <title>Usuarios</title>
+</head>
+<body class="bg-yellow-800/25">
+  <%- include('template/nav'); %>
+  <div class="w-[90%] mx-auto mt-8">
+    <li class="list-none p-5 ml-5">
+      <a class="underline text-stone-500 text-lg font-semibold hover:text-stone-600" href="/home">Home</a>
+      <span class="text-stone-500 text-lg">></span>
+      <a class="underline text-stone-500 text-lg font-semibold hover:text-stone-600" href="/admin">Admin</a>
+      <span class="text-stone-500 text-lg">></span>
+      <span class="text-stone-500 text-lg font-semibold">Usuarios</span>
+    </li>
+    <div class="container mx-auto">
+      <table class="w-full border-collapse">
+        <thead>
+          <tr class="bg-[#ffb67b]">
+            <th class="p-4 text-center">ID</th>
+            <th class="p-4 text-center">Email</th>
+            <th class="p-4 text-center">Usuario</th>
+            <th class="p-4 text-center">Rol</th>
+            <th class="p-4 text-center">Editar</th>
+            <th class="p-4 text-center">Eliminar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% var contador = 1; %>
+          <% usuarios.forEach(function(user) { %>
+            <% var claseFila = contador % 2 === 0 ? 'bg-orange-200' : 'bg-orange-100'; %>
+            <tr class="<%= claseFila %>">
+              <td class="p-2 text-center"><%= user.idusuario %></td>
+              <td class="p-2 text-center"><%= user.email %></td>
+              <td class="p-2 text-center"><%= user.username %></td>
+              <td class="p-2 text-center"><%= user.rol %></td>
+              <td class="p-2 text-center">
+                <a class="flex justify-center items-center" >
+                  <div class="cursor-pointer bg-orange-400 p-2 rounded-lg hover:opacity-70 transition-opacity" onclick="openEditModal('<%= user.idusuario %>', '<%= user.email %>', '<%= user.username %>', '<%= user.rol %>')">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-yellow-900">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                    </svg>
+                </div>
+                </a>
+              </td>
+              <td class="p-2 text-center">
+                  <div class="bg-white flex justify-center items-center w-fit mx-auto rounded-lg hover:opacity-70 transition-opacity">
+                    <button class="w-full h-full block p-2" onclick="openDeleteConfirmationModal('<%=user.idusuario%>')">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6 text-red-600">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                      </svg>
+                    </button>
+                  </div>
+              </td>
+            </tr>
+            <% contador++; %>
+          <% }); %>
+        </tbody>
+      </table>
+      <div class="p-5 mt-2">
+        <button onclick="openCreateModal()" class="cursor-pointer bg-orange-400 rounded-lg flex justify-center items-center hover:opacity-70 transition-opacity" style="height: 50px; width: 50px; font-size: 60px; line-height: 60px;"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3.5" stroke="currentColor" class="size-8 text-white">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+        </svg>
+        
+        </button>
+      </div>
+  </div>
+
+  <div id="deleteConfirmationModal" class="fixed inset-0 z-50 invisible justify-center items-center bg-black/80 transition-all opacity-0">
+    <div class="bg-white p-8 rounded-lg fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 justify-center items-center w-fit mx-auto">
+      <p class="font-semibold text-stone-800 text-lg">¿Estás seguro de que deseas eliminar este usuario?</p>
+      <div class="flex justify-center mt-4 ">
+        <button onclick="deleteUser()" class="hover:bg-red-800 bg-red-600 text-white px-4 py-2 rounded-md mr-2 transition-colors">Confirmar</button>
+        <button onclick="closeDeleteConfirmationModal()" class="hover:bg-gray-500 bg-gray-300 text-gray-700 px-4 py-2 rounded-md transition-colors hover:text-white">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Modal de edición -->
+
+  <!-- Velo negro -->
+  <div id="editModal" class="invisible fixed  top-0 left-0 bottom-0 right-0 bg-black/80 z-50 opacity-0 w-full h-full transition-all">
+
+    <!-- Modal -->
+    <div tabindex="-1" aria-hidden="true" class="overflow-y-auto overflow-x-hidden fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 justify-center items-center w-full max-w-md mx-auto bg-[#dfcdbe] rounded-lg shadow-2xl p-4 md:p-8">
+        <!-- Modal contenido login-->
+        <div id="loginModal" class="relative">
+            <div class="flex items-center justify-between pb-4 mb-4 border-b border-black">
+                <h3 class="text-xl font-semibold text-stone-800">
+                    Editar usuario
+                </h3>
+                <button onclick="closeEditModal()" type="button" class="cerrarModal2 text-stone-900 bg-transparent transition-colors hover:bg-stone-800 hover:text-white rounded-lg size-8 ms-auto inline-flex justify-center items-center" data-modal-hide="authentication-modal">
+                    <svg class="size-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+            <!-- Modal body -->
+            <div class="p-4 md:p-5">
+                <form id="editForm" name="editForm" class="space-y-4">
+                    <div>
+                        <label for="emailE" class="block mb-2 text-sm font-medium text-gray-900 ">Correo</label>
+                        <input type="email" name="email" id="emailE" class="bg-gray-200 border border-black/50 text-black text-sm rounded-lg focus:ring-black focus:border-black block w-full p-2.5 focus:outline-none" placeholder="" >
+                    </div>
+                    <div>
+                      <label for="usuarioR" class="block mb-2 text-sm font-medium text-gray-900 ">Usuario</label>
+                      <input type="text" name="username" id="usuarioR" class="bg-gray-200 border border-black/50 text-black text-sm rounded-lg focus:ring-black focus:border-black block w-full p-2.5 focus:outline-none" placeholder="" >
+                  </div>
+                    <div>
+                        <label for="passwordE" class="block mb-2 text-sm font-medium text-gray-900 ">Contraseña</label>
+                        <div class="relative">
+                          <input type="password" name="password" id="passwordE" placeholder="••••••••" class="bg-gray-200 border border-black/50 text-black text-sm rounded-lg focus:ring-black focus:border-black block w-full p-2.5 focus:outline-none" />
+                          <div class="absolute inset-y-0 right-0 flex items-center pr-2">
+                            <div id="ojo" class="w-fit rounded-full p-1 hover:bg-opacity-50 hover:bg-gray-400 transition-colors">
+                              <svg id="text" class="size-6 cursor-pointer" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M4 12C4 12 5.6 7 12 7M12 7C18.4 7 20 12 20 12M12 7V4M18 5L16 7.5M6 5L8 7.5M15 13C15 14.6569 13.6569 16 12 16C10.3431 16 9 14.6569 9 13C9 11.3431 10.3431 10 12 10C13.6569 10 15 11.3431 15 13Z" stroke="#9ca3af" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                            </div>
+                          </div>                        
+                        </div>
+                    </div>
+                    <div class="flex flex-row gap-3 justify-start items-center">
+                      <label for="admin">Admin</label>
+                      <input type="checkbox" name="rol" id="admin">
+                    </div>
+                    </div>
+                    <button type="submit" class="w-full text-white bg-orange-500 hover:bg-orange-600 focus:ring-1 focus:outline-none focus:ring-orange-950/50 font-semibold rounded-lg text-base px-5 py-2.5 text-center ">Editar</button>
+                </form>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Crear modal-->
+  <div id="crearModal" class="invisible fixed  top-0 left-0 bottom-0 right-0 bg-black/80 z-50 opacity-0 w-full h-full transition-all">
+
+    <!-- Modal -->
+    <div tabindex="-1" aria-hidden="true" class="overflow-y-auto overflow-x-hidden fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 justify-center items-center w-full max-w-md mx-auto bg-[#dfcdbe] rounded-lg shadow-2xl p-4 md:p-8">
+        <!-- Modal contenido login-->
+        <div id="loginModal" class="relative">
+            <div class="flex items-center justify-between pb-4 mb-4 border-b border-black">
+                <h3 class="text-xl font-semibold text-stone-800">
+                    Crear usuario
+                </h3>
+                <button onclick="closeCreateModal()" type="button" class="cerrarModal2 text-stone-900 bg-transparent transition-colors hover:bg-stone-800 hover:text-white rounded-lg size-8 ms-auto inline-flex justify-center items-center" data-modal-hide="authentication-modal">
+                    <svg class="size-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+            <!-- Modal body -->
+            <div class="p-4 md:p-5">
+                <form id="crearForm" name="crearForm" class="space-y-4">
+                    <div>
+                        <label for="emailC" class="block mb-2 text-sm font-medium text-gray-900 ">Correo</label>
+                        <input type="email" name="email" id="emailC" class="bg-gray-200 border border-black/50 text-black text-sm rounded-lg focus:ring-black focus:border-black block w-full p-2.5 focus:outline-none" placeholder="correo@gmail.com" required>
+                    </div>
+                    <div>
+                      <label for="usuarioC" class="block mb-2 text-sm font-medium text-gray-900 ">Usuario</label>
+                      <input type="text" name="username" id="usuarioC" class="bg-gray-200 border border-black/50 text-black text-sm rounded-lg focus:ring-black focus:border-black block w-full p-2.5 focus:outline-none" placeholder="usuario" required>
+                  </div>
+                    <div>
+                        <label for="passwordC" class="block mb-2 text-sm font-medium text-gray-900 ">Contraseña</label>
+                        <div class="relative">
+                          <input type="password" name="password" id="passwordC" placeholder="••••••••" class="bg-gray-200 border border-black/50 text-black text-sm rounded-lg focus:ring-black focus:border-black block w-full p-2.5 focus:outline-none" required />
+                          <div class="absolute inset-y-0 right-0 flex items-center pr-2">
+                            <div id="ojo" class="w-fit rounded-full p-1 hover:bg-opacity-50 hover:bg-gray-400 transition-colors">
+                              <svg id="text" class="size-6 cursor-pointer" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M4 12C4 12 5.6 7 12 7M12 7C18.4 7 20 12 20 12M12 7V4M18 5L16 7.5M6 5L8 7.5M15 13C15 14.6569 13.6569 16 12 16C10.3431 16 9 14.6569 9 13C9 11.3431 10.3431 10 12 10C13.6569 10 15 11.3431 15 13Z" stroke="#9ca3af" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                            </div>
+                          </div>                        
+                        </div>
+                    </div>
+                    <div class="flex flex-row gap-3 justify-start items-center">
+                      <label for="adminC">Admin</label>
+                      <input type="checkbox" name="rol" id="adminC">
+                    </div>
+                    </div>
+                    <button type="submit" class="w-full text-white bg-orange-500 hover:bg-orange-600 focus:ring-1 focus:outline-none focus:ring-orange-950/50 font-semibold rounded-lg text-base px-5 py-2.5 text-center ">Crear</button>
+                </form>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+      let userIdToDelete; // Variable para almacenar el ID del usuario a eliminar
+
+function openDeleteConfirmationModal(userId) {
+  userIdToDelete = userId;
+  document.getElementById('deleteConfirmationModal').classList.toggle('invisible');
+  document.getElementById('deleteConfirmationModal').style.opacity = "1";
+}
+
+function closeDeleteConfirmationModal() {
+  userIdToDelete = null;
+  document.getElementById('deleteConfirmationModal').classList.toggle('invisible');
+  document.getElementById('deleteConfirmationModal').style.opacity = "0";
+}
+
+function deleteUser() {
+  if (userIdToDelete) {
+    // Envía la solicitud DELETE al servidor
+    fetch(`/admin/usuarios/delete/${userIdToDelete}`, {
+      method: "DELETE"
+    })
+    .then(response => {
+      if (response.ok) {
+        // La eliminación fue exitosa, puedes hacer lo que necesites aquí
+        // Por ejemplo, recargar la página
+        window.location.reload();
+        console.log('Usuario eliminado correctamente');
+      } else {
+        // La eliminación falló, muestra un mensaje de error o maneja la situación según sea necesario
+        console.error('Error al eliminar el usuario');
+      }
+    })
+    .catch(error => {
+      // Ocurrió un error en la solicitud, muestra un mensaje de error o maneja la situación según sea necesario
+      console.error('Error en la solicitud de eliminación:', error);
+    });
+  }
+}
+
+
+    let modal = document.getElementById("editModal");
+    let modal2 = document.getElementById("crearModal")
+    let editForm = document.getElementById("editForm");
+    let createForm = document.getElementById("crearForm")
+    createForm.addEventListener("submit", crearUsuario)
+
+    function openCreateModal() {
+      modal2.classList.toggle("invisible")
+      modal2.style.opacity = 1;
+      document.body.classList.add("overflow-hidden");
+    }
+    
+    function openEditModal(userId, email, username, rol) {
+      editForm.addEventListener("submit", () => editarUsuario(userId))
+      document.getElementById("emailE").placeholder = email;
+      document.getElementById("usuarioR").placeholder = username;
+      if(rol === "ADMIN") {
+        document.getElementById("admin").checked = true;  
+      } else {
+        document.getElementById("admin").checked = false; 
+      }
+      modal.classList.toggle("invisible")
+      modal.style.opacity = 1;
+      document.body.classList.add("overflow-hidden");
+    }
+
+    function closeEditModal() {
+      modal.style.opacity = 0;
+      modal.classList.toggle("invisible")
+      document.body.classList.remove("overflow-hidden");
+    }
+
+    function closeCreateModal() {
+      modal2.style.opacity = 0;
+      modal2.classList.toggle("invisible")
+      document.body.classList.remove("overflow-hidden");
+    }
+
+    async function crearUsuario() {
+      event.preventDefault();
+      const formData = new FormData(crearForm);
+      let rol = "";
+
+      formData.get('rol') ? rol = "ADMIN" : rol = "USER"
+      formData.delete("rol")
+      formData.append("rol", rol)
+
+      const formJSON = Object.fromEntries(formData.entries());
+
+      console.log(formJSON)
+      try {
+        const response = await fetch(`/admin/usuarios/add`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formJSON)
+        });
+
+        if (response.ok) {
+            window.location.reload();
+            console.log('Usuario creado correctamente');
+        } else {
+            console.error('Error al crear un usuario');
+        }
+      } catch (error) {
+          console.error('Error de red:', error);
+      }
+    }
+
+    async function editarUsuario(userId) {
+      event.preventDefault();
+      const formData = new FormData(editForm);
+      const formJSON = Object.fromEntries(formData.entries());
+      let formJSONWithContent = {};
+      // Verificar si el campo "rol" está presente en formJSON
+      if ("rol" in formJSON) {
+          // Verificar si el campo de casilla de verificación "rol" está marcado
+          if (editForm.elements["rol"].checked) {
+              formJSONWithContent["rol"] = "ADMIN";
+          } else {
+              formJSONWithContent["rol"] = "USER";
+          }
+      } else {
+          // Si el campo "rol" no está presente en formJSON, agregarlo con el valor predeterminado "USER"
+          formJSONWithContent["rol"] = "USER";
+      }
+
+      // Iterar sobre los demás campos y agregarlos a formJSONWithContent si tienen contenido
+      for (const key in formJSON) {
+          if (key !== "rol" && formJSON[key].trim() !== "") {
+              formJSONWithContent[key] = formJSON[key];
+          }
+      }
+
+      console.log(formJSONWithContent);
+      try {
+        const response = await fetch(`/admin/usuarios/edit/${userId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formJSONWithContent)
+        });
+
+        if (response.ok) {
+            window.location.reload();
+            console.log('Usuario editado correctamente');
+        } else {
+            console.error('Error al editar el usuario');
+        }
+      } catch (error) {
+          console.error('Error de red:', error);
+      }
+    }
+  </script>
+</body>
+</html>

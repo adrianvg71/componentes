@@ -1,0 +1,58 @@
+<div class="relative h-[65vh] -z-10">
+            <!-- Carousel wrapper -->
+            <div id="default-carousel" class="h-full overflow-hidden blur-sm">
+                <!-- Item 1 -->
+                <div class="absolute h-full w-full flex items-center justify-center transition-transform duration-700 " data-carousel-item>
+                    <img src="../img/carrusel1.webp" class="block h-full w-full object-cover" alt="...">
+                </div>
+                <!-- Item 2 -->
+                <div class="absolute w-full h-full flex items-center justify-center transition-transform duration-700 translate-x-full" data-carousel-item>
+                    <img src="../img/carrusel2.jpg" class="block h-full w-full object-cover" alt="...">
+                </div>
+                <!-- Item 3 -->
+                <div class="absolute w-full h-full flex items-center justify-center transition-transform duration-700 translate-x-full" data-carousel-item>
+                    <img src="../img/carrusel3.webp" class="block h-full w-full object-cover" alt="...">
+                </div>
+                <!-- Item 4 -->
+                <div class="absolute w-full h-full flex items-center justify-center transition-transform duration-700 translate-x-full" data-carousel-item>
+                    <img src="../img/carrusel4.jpg" class="block h-full w-full object-cover" alt="...">
+                </div>
+                <!-- Item 5 -->
+                <div class="absolute w-full h-full flex items-center justify-center transition-transform duration-700 translate-x-full" data-carousel-item>
+                    <img src="../img/carrusel5.webp" class="block h-full w-full object-cover" alt="...">
+                </div>
+            </div>
+        <div class="absolute inset-0 bg-black bg-opacity-70"></div>
+        <div class="absolute inset-0 flex flex-col items-center justify-center">
+            <h1 class="text-6xl text-stone-200 font-bold text-center">TU ORDENADOR A TU MEDIDA</h1>
+            <p class="text-xl text-stone-400 mt-4">Busca o filtra por categorias todos nuestros productos</p>
+        </div>
+</div>
+
+<script>
+    let carrusel = document.getElementById("default-carousel")
+    let sliders = document.querySelectorAll('[data-carousel-item]');
+    let currentIndex = 0;
+
+    function showNextItem() {
+        // Aplica la transformación al ítem actual
+        sliders[currentIndex].style.transform = 'translateX(-100%)';
+        
+        // Calcula el índice del próximo ítem
+        let nextIndex = (currentIndex + 1) % sliders.length;
+        
+        // Coloca el próximo ítem a la derecha fuera de la vista
+        sliders[nextIndex].style.transform = 'translateX(0)';
+        
+        // Actualiza el índice actual
+        currentIndex = nextIndex;
+        
+        // Temporizador para mover el primer elemento al final después de la transición
+        setTimeout(() => {
+            carrusel.children[0].style.transform = 'translateX(100%)'
+            carrusel.appendChild(carrusel.children[0]);
+        }, 700); // Aquí 700ms es la duración de la transición
+    }
+    
+    setInterval(showNextItem, 6000);
+</script>
