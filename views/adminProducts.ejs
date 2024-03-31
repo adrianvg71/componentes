@@ -331,6 +331,7 @@
         formData.delete('img')
         formData.append('img', img.data.url)
         const formJSON = Object.fromEntries(formData.entries());
+        console.log(formJSON)
 
         try {
           const response = await fetch(`/admin/productos/add`, {
@@ -399,7 +400,7 @@
 
       async function uploadImg(img) {
         const imgbb = new FormData();
-        imgbb.append('key', 'd90aae3a5315b7853918f81926725420')
+        imgbb.append('key', `<%= imgbb_key  %>`)
         imgbb.append('image', img)
 
         try {
